@@ -25,7 +25,7 @@ SECRET_KEY = 'c390gjf861qpx4v=y#&^pp%*t5156$*f9%tu7vpou#1y4sp5sj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['enrollmentml.herokuapp.com']
 
 
 # Application definition
