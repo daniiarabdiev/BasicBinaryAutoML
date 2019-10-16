@@ -55,16 +55,6 @@ def classification_metrics(y_true, y_pred, y_pred_prob):
     return auc, accuracy
 
 
-def random_undersample(X_train, Y_train, label_column):
-    from imblearn.under_sampling import RandomUnderSampler
-    import pandas as pd
-    ros = RandomUnderSampler(random_state=42)
-    X_res, y_res = ros.fit_resample(X_train, Y_train)
-    X_res = pd.DataFrame(X_res, columns=X_train.columns)
-    y_res = pd.DataFrame(y_res, columns=[label_column])[label_column]
-    return X_res, y_res
-
-
 def catboost_feature_importance(model, train_pool, dataframe_columns):
     import pandas as pd
     feature_importances = model.get_feature_importance(train_pool)
@@ -124,12 +114,6 @@ def big_catboost(df_tr, target, label_column, cat_columns, key, undersample=Fals
         if not os.path.exists('files/{0}/important_features'.format(key)):
             os.makedirs('files/{0}/important_features'.format(key))
         model.save_model('files/{0}/weights/catboost_model_{1}.dump'.format(key, c))
-        # from .models import Weight, ImportantFeature
-        # obj = Weight()
-        # obj.key = 'try10'
-        # with open('pipeline/weights/catboost_model_{0}.dump'.format(c), 'rb') as rfile:
-        #     obj.weight = rfile
-        # obj.save()
 
         # FEATURE IMPORTANCE
         train_pool = Pool(X_train, Y_train, cat_features=cat_columns_indices)
